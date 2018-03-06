@@ -4,6 +4,7 @@ services:
    db:
      image: mysql:5.7
      restart: always
+     build: docker/mysql
      environment:
        MYSQL_ROOT_PASSWORD: somewordpress
        MYSQL_DATABASE: wordpress
@@ -17,11 +18,6 @@ services:
      ports:
        - "8000:80"
      restart: always
-     volumes:
-         - "./wp-init.sh:/usr/local/bin/apache2-custom.sh"
-         - "./dump.sql:/var/www/html/dump.sql"
-     command:
-         - apache2-custom.sh
      container_name: wp_tests
      environment:
        WORDPRESS_DB_HOST: db:3306
