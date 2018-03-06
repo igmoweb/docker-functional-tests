@@ -14,12 +14,15 @@ services:
      depends_on:
        - db
      image: wordpress:latest
-     build:
-      context: ./
-      dockerfile: Dockerfile
      ports:
        - "8000:80"
      restart: always
+     volumes:
+         - "./wp-init.sh:/usr/local/bin/apache2-custom.sh"
+         - "./dump.sql:/var/www/html/dump.sql"
+     command:
+         - apache2-custom.sh
+     container_name: wp_tests
      environment:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress
